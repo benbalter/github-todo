@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GitHub Todo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="style.css" rel="stylesheet" media="screen">
+</head>
+  <body>
+    <div class="container">
+
+      <h1>GitHub Todo</h1>
+
+      <ul class="issues">
+        <% for issue in issues %>
+        <li class="issue">
+
+          <ul class="labels">
+            <% for label in issue.labels %>
+              <li class="label" style="background-color: #<%= label.color %>">
+                <%= label.name %>
+              </li>
+            <% end %>
+          </ul>
+
+          <a href="https://github.com/<%= issue.repository.full_name %>/issues/<%= issue.number %>">
+            <h2><%= issue.title %></h2>
+          </a>
+
+          <div class="created">
+            Created <%= ActionView::Helpers::DateHelper.time_ago_in_words issue.created_at %> ago
+          </div>
+
+          <div class="repo">
+            <%= issue.repository.full_name %>
+          </div>
+
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </body>
+</html>
